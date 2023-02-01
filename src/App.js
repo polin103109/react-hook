@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [inputlist, setInputList] = useState("");
+  const [Items, setItems] = useState([]); 
+  const itemEvent = (event) =>{
+    setInputList(event.target.value);
+
+  };
+  const listOfItems = () =>{ 
+    setItems( (oldItems) => {
+     return [...oldItems,inputlist ];
+    })
+    setInputList('');
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main_div">
+      <div className="center_div">
+        <h1>ToDo List</h1>
+        <br/>
+        <input type="text" placeholder='Add items' 
+        value={inputlist}
+        onChange={itemEvent}/>
+        <button onClick={listOfItems}> + </button>
+        <ol>
+        {Items.map(  (itemvalue) =>{
+          return <li> {itemvalue} </li>
+        }   )}
+          
+        </ol>
+   
+   </div> 
+   
     </div>
   );
 }
